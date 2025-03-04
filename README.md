@@ -1,2 +1,2 @@
 ## Preview
-<img src="Screenshot_20250304_180303.png" width="270"/>
+<img src="Screenshot_preview.png" width="270"/>
