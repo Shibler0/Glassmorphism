@@ -277,7 +277,7 @@ fun GLassmorphism2(text : String = "Hey") {
 
     }
 
-    Text(text, modifier = Modifier.offset(x = 50.dp, y = 50.dp))
+    //Text(text, modifier = Modifier.offset(x = 50.dp, y = 50.dp))
 
 }
 
