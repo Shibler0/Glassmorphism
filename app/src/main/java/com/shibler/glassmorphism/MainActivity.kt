@@ -342,6 +342,8 @@ fun GLassmorphismTabletScreen(text : String = "") {
         Donut(Offset(widthInPx * 0.8f, heightInPx * 0.7f))
 
         bankCard(
+            fontMultiplier = 1.5,
+            pictureMultiplier = 1.5f,
             modifier = Modifier
                 .rotate(rotationAngle)
                 .size(450.dp, 300.dp)
@@ -437,9 +439,7 @@ fun GLassmorphismTabletScreen(text : String = "") {
 }
 
 @Composable
-fun bankCard(modifier: Modifier, composable: @Composable () -> Unit) {
-
-    //val fontMultiplier = fontCoef
+fun bankCard(modifier: Modifier, fontMultiplier : Double = 1.0, pictureMultiplier : Float = 1f , composable: @Composable () -> Unit) {
 
     Box(
         modifier = modifier
@@ -454,8 +454,8 @@ fun bankCard(modifier: Modifier, composable: @Composable () -> Unit) {
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically
         ) {
-            Image(painter = painterResource(id = R.drawable.cardlogo), contentDescription = "mastercard", modifier = Modifier.size(30.dp))
-            Image(painter = painterResource(id = R.drawable.visalogo), contentDescription = "mastercard", modifier = Modifier.size(50.dp))
+            Image(painter = painterResource(id = R.drawable.cardlogo), contentDescription = "mastercard", modifier = Modifier.size(30.dp.times(pictureMultiplier)))
+            Image(painter = painterResource(id = R.drawable.visalogo), contentDescription = "mastercard", modifier = Modifier.size(50.dp.times(pictureMultiplier)))
         }
 
         Row(
@@ -465,7 +465,7 @@ fun bankCard(modifier: Modifier, composable: @Composable () -> Unit) {
             horizontalArrangement = Arrangement.Start,
             verticalAlignment = Alignment.CenterVertically
         ) {
-            Text("3845 **** **** 1234", color = Color.White, fontSize = 20.sp, fontFamily = FontFamily(Font(R.font.montserratmedium)))
+            Text("3845 **** **** 1234", color = Color.White, fontSize = 20.sp.times(fontMultiplier), fontFamily = FontFamily(Font(R.font.montserratmedium)))
         }
 
         Row(
@@ -477,8 +477,8 @@ fun bankCard(modifier: Modifier, composable: @Composable () -> Unit) {
         ) {
 
             Column {
-                Text("Cardholder :", color = Color.White, fontSize = 10.sp, fontFamily = FontFamily(Font(R.font.montserratmedium)))
-                Text("Juliette Nichols", color = Color.White, fontSize = 15.sp, fontFamily = FontFamily(Font(R.font.montserratmedium)))
+                Text("Cardholder :", color = Color.White, fontSize = 10.sp.times(fontMultiplier), fontFamily = FontFamily(Font(R.font.montserratmedium)))
+                Text("Juliette Nichols", color = Color.White, fontSize = 15.sp.times(fontMultiplier), fontFamily = FontFamily(Font(R.font.montserratmedium)))
             }
 
 
