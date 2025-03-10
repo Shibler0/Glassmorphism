@@ -107,3 +107,14 @@ fun DrawScope.drawDonut(center : Offset, radius: Float) {
         )
     )
 }
+
+@Composable
+fun Point(center : Offset) {
+    Canvas(modifier = Modifier.fillMaxSize()) {
+        drawCircle(
+            color = Color.Red,
+            radius = 10f,
+            center = center
+        )
+    }
+}

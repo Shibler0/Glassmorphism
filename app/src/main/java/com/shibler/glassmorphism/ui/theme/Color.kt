@@ -22,3 +22,5 @@ val circleGradient2 = Color(124, 117, 221)
 
 val donutHoleTop = Color(243, 90, 147)
 val donutHoleBottom = Color(22, 9, 141)
+
+val btnColor = Color(63, 95, 247)

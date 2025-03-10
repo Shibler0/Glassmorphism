@@ -11,11 +11,16 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.asPaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.systemBars
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
 import androidx.compose.material3.windowsizeclass.ExperimentalMaterial3WindowSizeClassApi
@@ -43,6 +48,8 @@ import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.style.TextDecoration
+import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.IntSize
 import androidx.compose.ui.unit.dp
@@ -50,6 +57,7 @@ import androidx.compose.ui.unit.sp
 import com.shibler.glassmorphism.ui.theme.GlassmorphismTheme
 import com.shibler.glassmorphism.ui.theme.backgroundBottom
 import com.shibler.glassmorphism.ui.theme.backgroundTop
+import com.shibler.glassmorphism.ui.theme.btnColor
 import com.shibler.glassmorphism.ui.theme.circleGradient
 import com.shibler.glassmorphism.ui.theme.orange
 import com.shibler.glassmorphism.ui.theme.pink
@@ -66,9 +74,9 @@ class MainActivity : ComponentActivity() {
                 val windowSizeClass = calculateWindowSizeClass(this)
 
                 when(windowSizeClass.widthSizeClass) {
-                    androidx.compose.material3.windowsizeclass.WindowWidthSizeClass.Compact -> GLassmorphism2(text = "Compact")
-                    androidx.compose.material3.windowsizeclass.WindowWidthSizeClass.Medium -> GLassmorphism2(text = "Medium")
-                    androidx.compose.material3.windowsizeclass.WindowWidthSizeClass.Expanded -> GLassmorphism2(text = "Expanded")
+                    androidx.compose.material3.windowsizeclass.WindowWidthSizeClass.Compact -> GLassmorphismPhoneScreen()
+                    androidx.compose.material3.windowsizeclass.WindowWidthSizeClass.Medium -> GLassmorphismPhoneScreen()
+                    androidx.compose.material3.windowsizeclass.WindowWidthSizeClass.Expanded -> GLassmorphismTabletScreen(text = "Expanded")
                 }
 
             }
@@ -76,7 +84,7 @@ class MainActivity : ComponentActivity() {
     }
 }
 
-@Preview(showBackground = true)
+/*@Preview(showBackground = true)
 @Composable
 fun Glassmorphism1() {
 
@@ -154,11 +162,11 @@ fun Glassmorphism1() {
 
     }
 
-}
+}*/
 
 @Preview
 @Composable
-fun GLassmorphism2(text : String = "Hey") {
+fun GLassmorphismPhoneScreen() {
 
     val width = LocalConfiguration.current.screenWidthDp.dp
     val density = LocalDensity.current
@@ -198,29 +206,13 @@ fun GLassmorphism2(text : String = "Hey") {
 
         Donut(Offset(widthInPx * 0.8f, heightInPx * 0.7f))
 
-            /*Box(
-                modifier = Modifier
-                    .rotate(rotationAngle)
-                    .size(300.dp, 200.dp)
-                    .clip(RoundedCornerShape(16.dp))
-                    .border(1.dp, borderGradient, RoundedCornerShape(16.dp))
-                    .blur(16.dp)
-                    .onGloballyPositioned { it ->
-                        position = it.positionInWindow()
-                        boxSize = it.size
-                    }
-                    .background(backgroundGradient)
-            ) {
-                Circle2(Offset((widthInPx * 0.8f) - position.x + 130f, (heightInPx * 0.7f) - position.y - 130f), 600f)
-            }*/
-
         bankCard(
             modifier = Modifier
                 .rotate(rotationAngle)
                 .size(300.dp, 200.dp)
                 .clip(RoundedCornerShape(16.dp))
                 .border(1.dp, borderGradient, RoundedCornerShape(16.dp))
-                .blur(0.dp)
+                .blur(3.dp)
                 .onGloballyPositioned { it ->
                     position = it.positionInWindow()
                     boxSize = it.size
@@ -230,24 +222,6 @@ fun GLassmorphism2(text : String = "Hey") {
         ) {
             Circle2(Offset((widthInPx * 0.8f) - position.x + 130f, (heightInPx * 0.7f) - position.y - 130f), 600f, modifier = Modifier.blur(16.dp))
         }
-
-        /*bankCard(
-            modifier = Modifier
-                .offset(x = -20.dp, y = 200.dp)
-                .rotate(-10f)
-                .size(200.dp, 120.dp)
-                .clip(RoundedCornerShape(16.dp))
-                .border(1.dp, borderGradient, RoundedCornerShape(16.dp))
-                .blur(0.dp)
-                .onGloballyPositioned { it ->
-                    position = it.positionInWindow()
-                    boxSize = it.size
-                }
-                .background(backgroundGradient)
-                .background(Brush.linearGradient(listOf(Color.White.copy(0.01f), Color.White.copy(0.5f))))
-        ) {
-
-        }*/
 
     }
 
@@ -277,12 +251,195 @@ fun GLassmorphism2(text : String = "Hey") {
 
     }
 
+    Column(
+        modifier = Modifier
+            .fillMaxSize(),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Center
+    ) {
+        Box(
+            modifier = Modifier
+                .background(btnColor, RoundedCornerShape(32.dp))
+                .size(120.dp, 30.dp)
+                .clip(RoundedCornerShape(32.dp)),
+            contentAlignment = Alignment.Center
+        ) {
+            Text("SIGN IN", color = Color.White, fontSize = 16.sp, fontFamily = FontFamily(Font(R.font.montserratsemibold)))
+        }
+
+        Spacer(modifier = Modifier.height(10.dp))
+
+        Box(
+            modifier = Modifier
+                .size(120.dp, 40.dp),
+            contentAlignment = Alignment.Center
+        ) {
+            Text("LOG IN", color = Color.White, fontSize = 16.sp, fontFamily = FontFamily(Font(R.font.montserratsemibold)))
+        }
+    }
+
+    val bottomPadding = with(LocalDensity.current) {
+        WindowInsets.systemBars.asPaddingValues().calculateBottomPadding()
+    }
+
+    Box(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(bottom = bottomPadding + 10.dp),
+        contentAlignment = Alignment.BottomCenter
+    ) {
+        Row() {
+            Text("Learn more about this ", color = Color.White, fontSize = 12.sp)
+            Text("here", color = Color.White, fontSize = 12.sp, textDecoration = TextDecoration.Underline)
+        }
+
+    }
+
     //Text(text, modifier = Modifier.offset(x = 50.dp, y = 50.dp))
+
+}
+
+@Preview(device = "spec:width=1280dp,height=800dp,dpi=240")
+@Composable
+fun GLassmorphismTabletScreen(text : String = "") {
+
+    val width = LocalConfiguration.current.screenWidthDp.dp
+    val density = LocalDensity.current
+    val widthInPx = with(density) { width.toPx() }
+    val height = LocalConfiguration.current.screenHeightDp.dp
+    val heightInPx = with(density) { height.toPx() }
+
+    var position by remember { mutableStateOf(Offset.Zero) }
+
+    var boxSize = IntSize.Zero
+
+    val borderGradient = Brush.linearGradient(
+        listOf(Color.Black,Color.White.copy(alpha = 1f), circleGradient),
+    )
+
+    val rotationAngle = 10f
+
+    val backgroundGradient = Brush.linearGradient(
+        colors = listOf(backgroundBottom, backgroundTop),
+    )
+
+    val cardGradient = Brush.linearGradient(
+        colors = listOf(Color.White.copy(alpha = 0.1f), Color.White.copy(alpha = 0.2f)),
+        start = Offset(position.x, position.y),
+        end = Offset(position.x + boxSize.width, position.y + boxSize.height)
+    )
+
+    Box(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(backgroundGradient),
+        contentAlignment = Alignment.Center
+    ) {
+        //Circle2(Offset(widthInPx * 0.6f, heightInPx * 0.7f), 300f, modifier = Modifier.blur(50.dp))
+
+        Circle2(Offset(widthInPx * 0.9f, heightInPx * 0.7f), 800f)//bottom right circle
+
+        Donut(Offset(widthInPx * 0.8f, heightInPx * 0.7f))
+
+        bankCard(
+            modifier = Modifier
+                .rotate(rotationAngle)
+                .size(450.dp, 300.dp)
+                .clip(RoundedCornerShape(16.dp))
+                .border(1.dp, borderGradient, RoundedCornerShape(16.dp))
+                .blur(3.dp)
+                .onGloballyPositioned { it ->
+                    position = it.positionInWindow()
+                    boxSize = it.size
+                }
+                .background(backgroundGradient)
+                .background(Brush.linearGradient(listOf(Color.White.copy(0.01f), Color.White.copy(0.3f))))
+        ) {
+            Circle2(Offset((widthInPx * 0.9f) - position.x + 100f, (heightInPx * 0.7f) - position.y -260f), 800f, modifier = Modifier.blur(16.dp))
+        }
+
+
+    }
+
+
+    Circle2(Offset.Zero, 500f, modifier = Modifier.blur(100.dp)) //top left circle
+
+
+    Donut(Offset(widthInPx * 0.1f, heightInPx * 0.1f), radius = 50f)
+
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(start = 50.dp, top = 50.dp, end = 30.dp),
+        horizontalAlignment = Alignment.Start,
+        verticalArrangement = Arrangement.Center
+    ) {
+
+        Column(
+            modifier = Modifier
+                .padding(top = 50.dp),
+            horizontalAlignment = Alignment.Start
+        ) {
+            Text("\uD83D\uDCB0 START SAVING YOUR MONEY", color = Color.Green, fontSize = 15.sp)
+
+            Text("Payments \nhave never \nbeen easier", color = Color.White, fontSize = 60.sp, fontFamily = FontFamily(Font(R.font.montserratsemibold)), lineHeight = 60.sp)
+            Spacer(modifier = Modifier.height(40.dp))
+
+            Text("Discover the easiest way to manage your personal finances. \nSave, analyse, invest, withdraw, send and receive money all\nover the world with no limit !", color = Color.White, fontSize = 16.sp, fontFamily = FontFamily(Font(R.font.montserratmedium)))
+        }
+
+    }
+
+    Column(
+        modifier = Modifier
+            .fillMaxSize(),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Center
+    ) {
+        Box(
+            modifier = Modifier
+                .background(btnColor, RoundedCornerShape(32.dp))
+                .size(240.dp, 60.dp)
+                .clip(RoundedCornerShape(32.dp)),
+            contentAlignment = Alignment.Center
+        ) {
+            Text("SIGN IN", color = Color.White, fontSize = 32.sp, fontFamily = FontFamily(Font(R.font.montserratsemibold)))
+        }
+
+        Spacer(modifier = Modifier.height(10.dp))
+
+        Box(
+            modifier = Modifier
+                .size(240.dp, 80.dp),
+            contentAlignment = Alignment.Center
+        ) {
+            Text("LOG IN", color = Color.White, fontSize = 32.sp, fontFamily = FontFamily(Font(R.font.montserratsemibold)))
+        }
+    }
+
+    val bottomPadding = with(LocalDensity.current) {
+        WindowInsets.systemBars.asPaddingValues().calculateBottomPadding()
+    }
+
+    Box(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(bottom = bottomPadding + 10.dp),
+        contentAlignment = Alignment.BottomCenter
+    ) {
+        Row() {
+            Text("Learn more about this ", color = Color.White, fontSize = 12.sp)
+            Text("here", color = Color.White, fontSize = 12.sp, textDecoration = TextDecoration.Underline)
+        }
+
+    }
 
 }
 
 @Composable
 fun bankCard(modifier: Modifier, composable: @Composable () -> Unit) {
+
+    //val fontMultiplier = fontCoef
 
     Box(
         modifier = modifier
@@ -328,7 +485,6 @@ fun bankCard(modifier: Modifier, composable: @Composable () -> Unit) {
         }
 
     }
-
 
 }
 
